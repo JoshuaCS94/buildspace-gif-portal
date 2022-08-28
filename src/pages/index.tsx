@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import Image from 'next/image'
 
-import twitterImg from '../public/twitter-logo.svg'
+import twitterImg from '../../public/twitter-logo.svg'
 
 const TWITTER_HANDLE = '_buildspace'
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`
