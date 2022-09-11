@@ -22,25 +22,46 @@ const Home: NextPage = () => {
 
   const [address, setAddress] = useState<string | null>(null)
   const [gifs, setGifs] = useState(TEST_DATA)
+  const [newGif, setNewGif] = useState('')
 
   const handleConnect = () => {
     if (address) phantom?.disconnect()
     else phantom?.connect()
   }
 
+  const handleAddGif = () => {
+    if (newGif) {
+      setGifs(gifs => gifs.concat(newGif))
+      setNewGif('')
+    }
+  }
+
   useEffect(() => {
     phantom?.on('connect', pk => setAddress(pk.toString()))
     phantom?.on('disconnect', () => setAddress(null))
+    phantom?.connect({ onlyIfTrusted: true })
   }, [phantom])
 
   return (
     <div className='flex min-h-screen flex-col bg-gray-800 text-center'>
-      <div className='flex grow flex-col justify-center px-8 text-white'>
+      <div className='flex grow flex-col items-center justify-center px-8 text-white'>
         <div className='mt-24 flex flex-col'>
           <p className='text-5xl font-bold'>🖼 GIF Portal</p>
-          <p className='my-8 text-2xl'>View your GIF collection in the metaverse ✨</p>
+          <p className='my-4 text-2xl'>View your GIF collection in the metaverse ✨</p>
         </div>
-        <div className='flex flex-col items-center'>
+        <div className='mb-8 flex items-center gap-2'>
+          <input
+            type='text'
+            value={newGif}
+            placeholder='Type URL here...'
+            onChange={e => setNewGif(e.target.value)}
+            className='input input-bordered w-96 text-gray-800'
+          />
+          <button onClick={handleAddGif} className='btn btn-primary'>
+            Add GIF
+          </button>
+        </div>
+        <div className='flex grow flex-col items-center'>
           {phantom ? (
             address ? (
               <GifGrid gifs={gifs} />
@@ -58,7 +79,7 @@ const Home: NextPage = () => {
             </p>
           )}
         </div>
-        <div className='mt-auto flex w-full items-center justify-center py-8'>
+        <div className='flex w-full items-center justify-center py-8'>
           <Image alt='Twitter Logo' width={35} height={35} src={twitterImg} />
           <a className='font-bold' href={TWITTER_LINK} target='_blank' rel='noreferrer'>
             {`built on @${TWITTER_HANDLE}`}
