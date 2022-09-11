@@ -34,8 +34,8 @@ const Home: NextPage = () => {
   }, [phantom])
 
   return (
-    <div className='min-h-screen bg-gray-800 text-center'>
-      <div className='relative flex h-full flex-col justify-center px-8 text-white'>
+    <div className='flex min-h-screen flex-col bg-gray-800 text-center'>
+      <div className='flex grow flex-col justify-center px-8 text-white'>
         <div className='mt-24 flex flex-col'>
           <p className='text-5xl font-bold'>🖼 GIF Portal</p>
           <p className='my-8 text-2xl'>View your GIF collection in the metaverse ✨</p>
@@ -58,7 +58,7 @@ const Home: NextPage = () => {
             </p>
           )}
         </div>
-        <div className='mt-8 flex w-full items-center justify-center pb-8'>
+        <div className='mt-auto flex w-full items-center justify-center py-8'>
           <Image alt='Twitter Logo' width={35} height={35} src={twitterImg} />
           <a className='font-bold' href={TWITTER_LINK} target='_blank' rel='noreferrer'>
             {`built on @${TWITTER_HANDLE}`}
